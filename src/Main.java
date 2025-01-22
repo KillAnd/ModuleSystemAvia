@@ -14,19 +14,19 @@ public class Main {
         LocalDateTime nowTime = LocalDateTime.now();
         List<Flight> flights = flightBuilder.createFlights(nowTime);
 
-        // Фильтр 1: Вылет до текущего момента времени
+        // Фильтр 1: Исключение вылетов
         List<Flight> departureBeforeNow = filter.filterDepartureBeforeNow(flights, nowTime);
-        System.out.println("Перелеты с вылетом до текущего момента времени:");
+        System.out.println("Список с исключением вылетов до текущего момента времени:");
         departureBeforeNow.forEach(System.out::println);
 
-        // Фильтр 2: Сегменты с датой прилёта раньше даты вылета
+        // Фильтр 2: Исключение сегментов с датой прилёта раньше даты вылета
         List<Flight> arrivalBeforeDeparture = filter.filterArrivalBeforeDeparture(flights);
-        System.out.println("\nПерелеты с сегментами, где прилет раньше вылета:");
+        System.out.println("\nСписок с исключением сегментов с датой прилёта раньше даты вылета");
         arrivalBeforeDeparture.forEach(System.out::println);
 
-        // Фильтр 3: Перелеты с общим временем на земле более двух часов
+        // Фильтр 3: Исключение перелетов с общим временем на земле более двух часов
         List<Flight> excessiveGroundTime = filter.filterExcessiveGroundTime(flights);
-        System.out.println("\nПерелеты с общим временем на земле более двух часов:");
+        System.out.println("\nСписок с исключением перелетов с общим временем на земле более двух часов");
         excessiveGroundTime.forEach(System.out::println);
 
     }
