@@ -7,14 +7,14 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/JUnit" />
+          <root url="file://D:/Idea/JUnit" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
-        <jarDirectory url="file://$MODULE_DIR$/JUnit" recursive="false" />
+        <jarDirectory url="file://D:/Idea/JUnit" recursive="false" />
       </library>
     </orderEntry>
   </component>

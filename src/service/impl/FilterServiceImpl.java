@@ -11,25 +11,24 @@ import java.util.stream.Collectors;
 
 public class FilterServiceImpl implements FilterService {
 
-
-    // Фильтр 1: Вылет до текущего момента времени
+    // Фильтр 1: Исключить перелеты, где вылет до текущего момента времени
     @Override
     public List<Flight> filterDepartureBeforeNow(List<Flight> flights, LocalDateTime nowTime) {
         return flights.stream()
-                .filter(flight -> flight.getSegments().get(0).getDepartureDate().isBefore(nowTime))
+                .filter(flight -> !flight.getSegments().get(0).getDepartureDate().isBefore(nowTime)) // Инвертировано условие
                 .collect(Collectors.toList());
     }
 
-    // Фильтр 2: Сегменты с датой прилёта раньше даты вылета
+    // Фильтр 2: Исключить перелеты, где есть сегменты с датой прилёта раньше даты вылета
     @Override
     public List<Flight> filterArrivalBeforeDeparture(List<Flight> flights) {
         return flights.stream()
                 .filter(flight -> flight.getSegments().stream()
-                        .anyMatch(segment -> segment.getArrivalDate().isBefore(segment.getDepartureDate())))
+                        .noneMatch(segment -> segment.getArrivalDate().isBefore(segment.getDepartureDate()))) // Инвертировано условие
                 .collect(Collectors.toList());
     }
 
-    // Фильтр 3: Перелеты, где общее время на земле превышает два часа
+    // Фильтр 3: Исключить перелеты, где общее время на земле превышает два часа
     @Override
     public List<Flight> filterExcessiveGroundTime(List<Flight> flights) {
         return flights.stream()
@@ -44,7 +43,7 @@ public class FilterServiceImpl implements FilterService {
                         totalGroundTime = totalGroundTime.plus(groundTime);
                     }
 
-                    return totalGroundTime.compareTo(Duration.ofHours(2)) > 0;
+                    return totalGroundTime.compareTo(Duration.ofHours(2)) <= 0; // Инвертировано условие
                 })
                 .collect(Collectors.toList());
     }
